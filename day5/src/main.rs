@@ -4,6 +4,7 @@ fn parse_input(input: &str) -> (HashMap<u32, Vec<u32>>, Vec<Vec<u32>>) {
     let mut split = input
         .split("\n\n");
 
+    // create a map of rules of the form {current node: [prev nodes]}
     let mut map: HashMap<u32, Vec<u32>> = HashMap::new();
 
     let rules: Vec<(u32, u32)> = split
@@ -21,6 +22,7 @@ fn parse_input(input: &str) -> (HashMap<u32, Vec<u32>>, Vec<Vec<u32>>) {
         map.entry(value.0).or_insert(vec![]);
     }
     
+    // create a 2D vector of updates
     let updates: Vec<Vec<u32>> = split
         .next().unwrap()
         .lines()
@@ -35,6 +37,22 @@ fn parse_input(input: &str) -> (HashMap<u32, Vec<u32>>, Vec<Vec<u32>>) {
     (map, updates)
 }
 
+// We filter the rules map (current node AND all previous nodes) to only include values in the current update line.
+// This allows us to sort the map by the number of previous nodes. Sorting the key by the number of previous nodes
+// gives us the correct order current nodes.
+//
+// updates:
+//     [75, 47, 61, 53, 29]
+//
+// original map: 
+//     {53: [47, 75, 61, 97], 97: [], 47: [97, 75], 61: [97, 47, 75], 29: [75, 97, 53, 61, 47], 75: [97], 13: [97, 61, 29, 47, 75, 53]}
+//
+// filtered map:
+//     {53: [61, 47, 75], 47: [75], 61: [47, 75], 29: [53, 61, 47, 75], 75: []}
+//
+// keys ordered by length of previous nodes:
+//     [75, 47, 61, 53, 29]
+//
 fn process(updates: &Vec<Vec<u32>>, rule_map: &HashMap<u32, Vec<u32>>) -> (u32, u32) {
     let mut part_one = 0;
     let mut part_two = 0;
