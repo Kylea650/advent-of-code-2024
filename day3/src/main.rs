@@ -20,15 +20,11 @@ fn part_two(input: &str) -> u32 {
         if c.get(1).is_some_and(|x| x.as_str() == "don't()") {
             process = false;
         };
-
         if c.get(2).is_some_and(|x| x.as_str() == "do()") {
             process = true;
         };
-
-        if process {
-            if c.get(3).is_some() && c.get(4).is_some() {
-                sum = c.get(3).unwrap().as_str().parse::<u32>().unwrap() * c.get(4).unwrap().as_str().parse::<u32>().unwrap();
-            }
+        if process && c.get(3).is_some() && c.get(4).is_some() {
+            sum = c.get(3).unwrap().as_str().parse::<u32>().unwrap() * c.get(4).unwrap().as_str().parse::<u32>().unwrap();
         }
         acc + sum
     })
