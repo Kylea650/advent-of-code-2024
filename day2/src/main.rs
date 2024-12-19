@@ -33,8 +33,32 @@ fn is_safe_with_removal(report: &Vec<u32>) -> bool {
 }
 
 fn main() {
-    let input = std::fs::read_to_string("./input.txt").unwrap();
+    let input = std::fs::read_to_string("./inputs/day2.txt").unwrap();
     let part_one = process(&input, is_safe);
     let part_two = process(&input, is_safe_with_removal);
     println!("part 1: {}, part 2: {}", part_one, part_two);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const INPUT: &str = "7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9";
+
+    #[test]
+    fn test_part_one() {
+        let part_one = process(INPUT, is_safe);
+        assert_eq!(part_one, 2);
+    }
+
+    #[test]
+    fn test_part_two() {
+        let part_two = process(INPUT, is_safe_with_removal);
+        assert_eq!(part_two, 4);
+    }
 }

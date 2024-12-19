@@ -31,8 +31,25 @@ fn part_two(input: &str) -> u32 {
 }
 
 fn main() {
-    let input = std::fs::read_to_string("./input.txt").unwrap();
+    let input = std::fs::read_to_string("./inputs/day3.txt").unwrap();
     let part_one = part_one(&input);
     let part_two = part_two(&input);
     println!("part 1: {} part 2: {}", part_one, part_two);
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const INPUT: &str = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
+
+    #[test]
+    fn test_part_one() {
+        assert_eq!(part_one(INPUT), 161);
+    }
+
+    #[test]
+    fn test_part_two() {
+        assert_eq!(part_two(INPUT), 48);
+    }
 }
