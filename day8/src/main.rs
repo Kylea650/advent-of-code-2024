@@ -63,7 +63,6 @@ fn add_recurring_antinodes(coordinates: &Vec<(usize, usize)>, max_size: (usize, 
         let mut combination_b = *combination[1];
         
         while let Some(antinode) = get_next_antinode(combination_a, combination_b, max_size, false) {
-            // println!("antinode: {:?}", antinode);
             antinodes.push(antinode);
             combination_b = combination_a;
             combination_a = antinode;
@@ -73,7 +72,6 @@ fn add_recurring_antinodes(coordinates: &Vec<(usize, usize)>, max_size: (usize, 
         combination_b = *combination[1];
 
         while let Some(antinode) = get_next_antinode(combination_a, combination_b, max_size, true) {
-            // println!("antinode: {:?}", antinode);
             antinodes.push(antinode);
             combination_a = combination_b;
             combination_b = antinode;
